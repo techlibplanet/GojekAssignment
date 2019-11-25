@@ -12,6 +12,7 @@ buildscript {
         rxkotlin_version = '2.4.0'
         rxandroid_version = '2.1.1'
         timber_version = '4.7.1'
+        shimmer_animation_version = '0.5.0'
     }
     repositories {
         google()
