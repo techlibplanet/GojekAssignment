@@ -11,7 +11,8 @@ data class TrendingRepositories(
     val languageColor: String,
     val name: String,
     val stars: Int,
-    val url: String
+    val url: String,
+    var expanded: Boolean
 )
 
 data class BuiltBy(
