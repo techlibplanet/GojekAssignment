@@ -13,6 +13,7 @@ class TrendingRepositoryAdapter : RecyclerView.Adapter<TrendingRepositoryViewHol
     var items: List<TrendingRepositories> = emptyList()
     private lateinit var context: Context
     private lateinit var dataBinding: TrendingRepositoriesBinding
+    var rowIndex = -1
 
     override fun onCreateViewHolder(
         parent: ViewGroup,
@@ -27,8 +28,6 @@ class TrendingRepositoryAdapter : RecyclerView.Adapter<TrendingRepositoryViewHol
     override fun getItemCount(): Int {
         return items.size
     }
-
-    var rowIndex = -1
 
     override fun onBindViewHolder(holder: TrendingRepositoryViewHolder, position: Int) {
         holder.bind(items[position], position)
