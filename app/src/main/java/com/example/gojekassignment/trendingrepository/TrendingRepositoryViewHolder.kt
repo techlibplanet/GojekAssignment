@@ -1,14 +1,14 @@
 package com.example.gojekassignment.trendingrepository
 
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gojekassignment.TrendingRepositoriesModel
 import com.example.gojekassignment.databinding.TrendingRepositoriesBinding
-import com.example.gojekassignment.viewmodel.TrendingRepositories
 
 class TrendingRepositoryViewHolder(private val dataBinding: TrendingRepositoriesBinding) :
     RecyclerView.ViewHolder(dataBinding.root) {
     var rowIndex = -1
     fun bind(
-        model: TrendingRepositories,
+        model: TrendingRepositoriesModel,
         position: Int
     ) {
         dataBinding.trendingRepository = model

@@ -2,38 +2,27 @@ package com.example.gojekassignment
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.gojekassignment.dependency.components.DaggerInjectActivityComponent
-import com.example.gojekassignment.helper.processRequest
-import com.example.gojekassignment.network.ITrendingRepositories
+import com.example.gojekassignment.helper.NetworkHelper
 import com.example.gojekassignment.trendingrepository.TrendingRepositoryAdapter
-import com.example.gojekassignment.viewmodel.TrendingRepositories
-import com.facebook.shimmer.ShimmerFrameLayout
-import io.reactivex.disposables.CompositeDisposable
+import com.example.gojekassignment.viewmodel.ApiResult
+import com.example.gojekassignment.viewmodel.TrendingRepositoriesViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import timber.log.Timber
-import javax.inject.Inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ApiResult {
 
-    private lateinit var disposable: CompositeDisposable
-    @Inject
-    lateinit var trendingRepositoryService: ITrendingRepositories
     private val trendingRepositoryAdapter: TrendingRepositoryAdapter by lazy { TrendingRepositoryAdapter() }
+    val viewModel by viewModel<TrendingRepositoriesViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val depComponent = DaggerInjectActivityComponent.builder()
-            .applicationComponent(GojekApplication.applicationComponent)
-            .build()
-        depComponent.injectMainActivity(this)
-
-        disposable = CompositeDisposable()
 
         trending_repository_recycler_view.layoutManager = LinearLayoutManager(this)
         trending_repository_recycler_view.setHasFixedSize(true)
@@ -48,11 +37,14 @@ class MainActivity : AppCompatActivity() {
         pullToRefresh.setOnRefreshListener {
             shimmer_view_container.visibility = View.VISIBLE;
             shimmer_view_container.startShimmer()
-            setData()
+            when {
+                NetworkHelper.isNetworkConnected(this) -> viewModel.getTrendingRepositories(this)
+                else -> showToastMessage("No Internet !")
+            }
             pullToRefresh.isRefreshing = false
         }
 
-        setData()
+        viewModel.getTrendingRepositories(this)
     }
 
     override fun onResume() {
@@ -65,21 +57,21 @@ class MainActivity : AppCompatActivity() {
         shimmer_view_container.stopShimmer()
     }
 
-    private fun setData() {
-        disposable.add(trendingRepositoryService.getData().processRequest(
-            {
-                Timber.d(it.toString())
-                setTrendingRepositoryAdapter(it)
-            }, {
-                Timber.d(it)
-            }
-        ))
-    }
-
-    private fun setTrendingRepositoryAdapter(trendingRepositories: MutableList<TrendingRepositories>) {
+    private fun setTrendingRepositoryAdapter(trendingRepositories: MutableList<TrendingRepositoriesModel>) {
         trendingRepositoryAdapter.items = trendingRepositories
         trendingRepositoryAdapter.notifyDataSetChanged()
         shimmer_view_container.stopShimmer();
         shimmer_view_container.visibility = View.GONE;
     }
+
+    override fun onSuccess(data: Any) {
+        setTrendingRepositoryAdapter(data as MutableList<TrendingRepositoriesModel>)
+    }
+
+    override fun onError(error: String) {
+        showToastMessage(error)
+    }
+
+    private fun showToastMessage(message: String) =
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
 }

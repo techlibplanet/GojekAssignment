@@ -1,16 +1,14 @@
 package com.example.gojekassignment
 
 import android.app.Application
-import com.example.gojekassignment.dependency.components.ApplicationComponent
-import com.example.gojekassignment.dependency.components.DaggerApplicationComponent
-import com.example.gojekassignment.dependency.modules.AppContextModule
+import com.example.samplelibrary.koindi.myModule
+import com.imagedemo.di.retrofitModule
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
 import timber.log.Timber
 
 class GojekApplication : Application() {
-
-    companion object {
-        lateinit var applicationComponent: ApplicationComponent
-    }
 
     override fun onCreate() {
         super.onCreate()
@@ -19,8 +17,10 @@ class GojekApplication : Application() {
             Timber.plant(Timber.DebugTree())
         }
 
-        applicationComponent = DaggerApplicationComponent.builder()
-            .appContextModule(AppContextModule(applicationContext))
-            .build()
+        startKoin {
+            androidContext(this@GojekApplication)
+            androidLogger()
+            modules(listOf(myModule, retrofitModule))
+        }
     }
 }

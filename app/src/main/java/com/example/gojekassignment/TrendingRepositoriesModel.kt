@@ -1,6 +1,6 @@
-package com.example.gojekassignment.viewmodel
+package com.example.gojekassignment
 
-data class TrendingRepositories(
+data class TrendingRepositoriesModel(
     val author: String,
     val avatar: String,
     val builtBy: List<BuiltBy>,

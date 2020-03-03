@@ -7,7 +7,7 @@
 
         <variable
             name="trendingRepository"
-            type="com.example.gojekassignment.viewmodel.TrendingRepositories" />
+            type="com.example.gojekassignment.TrendingRepositoriesModel" />
 
     </data>
 

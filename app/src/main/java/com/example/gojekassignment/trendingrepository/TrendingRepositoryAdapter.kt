@@ -5,12 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gojekassignment.TrendingRepositoriesModel
 import com.example.gojekassignment.databinding.TrendingRepositoriesBinding
-import com.example.gojekassignment.viewmodel.TrendingRepositories
 
 class TrendingRepositoryAdapter : RecyclerView.Adapter<TrendingRepositoryViewHolder>() {
 
-    var items: List<TrendingRepositories> = emptyList()
+    var items: List<TrendingRepositoriesModel> = emptyList()
     private lateinit var context: Context
     private lateinit var dataBinding: TrendingRepositoriesBinding
     var rowIndex = -1
