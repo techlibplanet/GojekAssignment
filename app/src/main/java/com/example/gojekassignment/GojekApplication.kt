@@ -2,7 +2,7 @@ package com.example.gojekassignment
 
 import android.app.Application
 import com.example.samplelibrary.koindi.myModule
-import com.imagedemo.di.retrofitModule
+import com.example.gojekassignment.koindi.retrofitModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin

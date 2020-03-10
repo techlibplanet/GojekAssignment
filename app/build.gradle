@@ -26,6 +26,11 @@ android {
     dataBinding {
         enabled = true
     }
+
+    testOptions {
+        unitTests.returnDefaultValues = true
+        unitTests.includeAndroidResources = true
+    }
 }
 
 dependencies {
@@ -103,4 +108,7 @@ dependencies {
 
     // Koin AndroidX ViewModel features
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
+
+    //Roboelectric
+    testImplementation 'org.robolectric:robolectric:4.3'
 }

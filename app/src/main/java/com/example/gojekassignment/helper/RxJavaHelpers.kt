@@ -9,79 +9,88 @@ import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
 
-inline fun <T> Observable<T>.processRequest(crossinline onNext: (result: T) -> Unit, crossinline onError: (message: String?) -> Unit): Disposable {
+inline fun <T> Observable<T>.processRequest(
+    crossinline onNext: (result: T) -> Unit,
+    crossinline onError: (message: String?) -> Unit
+): Disposable {
     return subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                    { result ->
-                        onNext(result)
-                    },
-                    { err ->
-                        val message = ProcessThrowable.getMessage(err)
-                        Timber.e(err)
-                        onError(message)
-                    }
-            )
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(
+            { result ->
+                onNext(result)
+            },
+            { err ->
+                val message = ProcessThrowable.getMessage(err)
+                Timber.e(err)
+                onError(message)
+            }
+        )
 }
 
-inline fun <T> Single<T>.processRequest(crossinline onSuccess: (result: T) -> Unit, crossinline onError: (message: String?) -> Unit): Disposable {
+inline fun <T> Single<T>.processRequest(
+    crossinline onSuccess: (result: T) -> Unit,
+    crossinline onError: (message: String?) -> Unit
+): Disposable {
     return subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                    { result ->
-                        onSuccess(result)
-                    },
-                    { err ->
-                        val message = ProcessThrowable.getMessage(err)
-                        Timber.e(err)
-                        onError(message)
-                    }
-            )
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(
+            { result ->
+                onSuccess(result)
+            },
+            { err ->
+                val message = ProcessThrowable.getMessage(err)
+                Timber.e(err)
+                onError(message)
+            }
+        )
 }
 
 inline fun <T> Single<T>.processRequest(crossinline onSuccess: (result: T) -> Unit): Disposable {
     return subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                    { result ->
-                        onSuccess(result)
-                    }
-            )
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(
+            { result ->
+                onSuccess(result)
+            }
+        )
 }
 
 fun <T> Single<T>.processRequest(): Disposable {
     return subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe()
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe()
 }
 
-inline fun <T> Flowable<T>.processRequest(crossinline onNext: (result: T) -> Unit, crossinline onError: (message: String?) -> Unit): Disposable {
+inline fun <T> Flowable<T>.processRequest(
+    crossinline onNext: (result: T) -> Unit,
+    crossinline onError: (message: String?) -> Unit
+): Disposable {
     return subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                    { result ->
-                        onNext(result)
-                    },
-                    { err ->
-                        val message = ProcessThrowable.getMessage(err)
-                        Timber.e(err)
-                        onError(message)
-                    }
-            )
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(
+            { result ->
+                onNext(result)
+            },
+            { err ->
+                val message = ProcessThrowable.getMessage(err)
+                Timber.e(err)
+                onError(message)
+            }
+        )
 }
 
 inline fun <T> Flowable<T>.processRequest(crossinline onNext: (result: T) -> Unit): Disposable {
     return subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                    { result ->
-                        onNext(result)
-                    }
-            )
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(
+            { result ->
+                onNext(result)
+            }
+        )
 }
 
 fun <T> Flowable<T>.processRequest(): Disposable {
     return subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe()
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe()
 }

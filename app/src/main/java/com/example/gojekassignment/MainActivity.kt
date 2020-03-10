@@ -17,12 +17,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class MainActivity : AppCompatActivity(), ApiResult {
 
     private val trendingRepositoryAdapter: TrendingRepositoryAdapter by lazy { TrendingRepositoryAdapter() }
-    val viewModel by viewModel<TrendingRepositoriesViewModel>()
+    private val viewModel by viewModel<TrendingRepositoriesViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
 
         trending_repository_recycler_view.layoutManager = LinearLayoutManager(this)
         trending_repository_recycler_view.setHasFixedSize(true)
@@ -60,7 +59,7 @@ class MainActivity : AppCompatActivity(), ApiResult {
     private fun setTrendingRepositoryAdapter(trendingRepositories: MutableList<TrendingRepositoriesModel>) {
         trendingRepositoryAdapter.items = trendingRepositories
         trendingRepositoryAdapter.notifyDataSetChanged()
-        shimmer_view_container.stopShimmer();
+        shimmer_view_container.stopShimmer()
         shimmer_view_container.visibility = View.GONE;
     }
 
@@ -68,8 +67,8 @@ class MainActivity : AppCompatActivity(), ApiResult {
         setTrendingRepositoryAdapter(data as MutableList<TrendingRepositoriesModel>)
     }
 
-    override fun onError(error: String) {
-        showToastMessage(error)
+    override fun onError(error: String?) {
+        error?.let { showToastMessage(it) }
     }
 
     private fun showToastMessage(message: String) =

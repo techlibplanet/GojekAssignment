@@ -26,5 +26,5 @@ class TrendingRepositoriesViewModel(
 
 interface ApiResult {
     fun onSuccess(data: Any)
-    fun onError(error: String)
+    fun onError(error: String?)
 }

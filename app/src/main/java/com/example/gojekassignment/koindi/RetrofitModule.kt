@@ -1,5 +1,6 @@
-package com.imagedemo.di
+package com.example.gojekassignment.koindi
 
+import androidx.annotation.VisibleForTesting
 import com.example.gojekassignment.helper.Constants
 import com.example.gojekassignment.network.ITrendingRepositories
 import okhttp3.OkHttpClient
@@ -20,11 +21,10 @@ val retrofitModule = module {
     }
 }
 
-
-private fun okHttp() = OkHttpClient.Builder()
+fun okHttp() = OkHttpClient.Builder()
     .build()
 
-private fun retrofit(baseUrl: String) = Retrofit.Builder()
+fun retrofit(baseUrl: String) = Retrofit.Builder()
     .callFactory(OkHttpClient.Builder().build())
     .baseUrl(baseUrl)
     .addConverterFactory(gson())

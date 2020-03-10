@@ -1,7 +1,5 @@
 package com.example.gojekassignment.helper
 
-
-import com.example.mayank.kwizzapp.helpers.JsonHelper
 import okhttp3.ResponseBody
 import org.json.JSONObject
 import retrofit2.HttpException
@@ -22,7 +20,7 @@ object ProcessThrowable {
                     val jObjError = JSONObject(err.string())
                     val error = JsonHelper.jsonToKt<Error>(jObjError.toString())
                     error.error_description
-                } catch(ex: Exception) {
+                } catch (ex: Exception) {
                     "Request failed."
                 }
             }
@@ -37,7 +35,7 @@ object ProcessThrowable {
             val jObjError = JSONObject(errorBody.string())
             val error = JsonHelper.jsonToKt<Error>(jObjError.toString())
             return error.error_description
-        } catch(ex: Exception) {
+        } catch (ex: Exception) {
             return "Request failed."
         }
     }
