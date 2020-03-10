@@ -1,6 +1,5 @@
 package com.example.gojekassignment.koindi
 
-import androidx.annotation.VisibleForTesting
 import com.example.gojekassignment.helper.Constants
 import com.example.gojekassignment.network.ITrendingRepositories
 import okhttp3.OkHttpClient
@@ -10,6 +9,8 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import timber.log.Timber
 
 val retrofitModule = module {
+
+
     single {
         okHttp()
     }
@@ -19,6 +20,7 @@ val retrofitModule = module {
     single {
         get<Retrofit>().create(ITrendingRepositories::class.java)
     }
+
 }
 
 fun okHttp() = OkHttpClient.Builder()
@@ -32,7 +34,7 @@ fun retrofit(baseUrl: String) = Retrofit.Builder()
     .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
     .build()
 
-fun gson(): retrofit2.converter.gson.GsonConverterFactory =
+private fun gson(): retrofit2.converter.gson.GsonConverterFactory =
     retrofit2.converter.gson.GsonConverterFactory.create(
         com.google.gson.GsonBuilder().setLenient().setDateFormat("yyyy-MM-dd'T'HH:mm:ss").create()
     )
@@ -49,7 +51,7 @@ fun okHttpClient(
         .build()
 }
 
-fun okhttpIntersepter(): okhttp3.Interceptor {
+private fun okhttpIntersepter(): okhttp3.Interceptor {
     return okhttp3.Interceptor { chain ->
         val original = chain.request()
         val requestBuilder = original.newBuilder()
@@ -57,7 +59,7 @@ fun okhttpIntersepter(): okhttp3.Interceptor {
     }
 }
 
-fun loggingInterceptor(): okhttp3.logging.HttpLoggingInterceptor {
+private fun loggingInterceptor(): okhttp3.logging.HttpLoggingInterceptor {
     val interceptor =
         okhttp3.logging.HttpLoggingInterceptor(okhttp3.logging.HttpLoggingInterceptor.Logger { message ->
             Timber.i(message)

@@ -19,7 +19,6 @@ class GojekApplication : Application() {
 
         startKoin {
             androidContext(this@GojekApplication)
-            androidLogger()
             modules(listOf(myModule, retrofitModule))
         }
     }
