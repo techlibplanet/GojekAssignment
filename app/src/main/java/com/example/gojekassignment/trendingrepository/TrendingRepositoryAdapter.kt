@@ -2,12 +2,10 @@ package com.example.gojekassignment.trendingrepository
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gojekassignment.TrendingRepositoriesModel
 import com.example.gojekassignment.databinding.TrendingRepositoriesBinding
-import kotlinx.android.synthetic.main.trending_repository_items.view.*
 
 class TrendingRepositoryAdapter : RecyclerView.Adapter<TrendingRepositoryViewHolder>() {
 
