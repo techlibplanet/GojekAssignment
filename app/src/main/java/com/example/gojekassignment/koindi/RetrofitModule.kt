@@ -2,10 +2,10 @@ package com.example.gojekassignment.koindi
 
 import com.example.gojekassignment.helper.Constants
 import com.example.gojekassignment.network.ITrendingRepositories
+import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import okhttp3.OkHttpClient
 import org.koin.dsl.module
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import timber.log.Timber
 
 val retrofitModule = module {
@@ -31,7 +31,7 @@ fun retrofit(baseUrl: String) = Retrofit.Builder()
     .baseUrl(baseUrl)
     .addConverterFactory(gson())
     .client(okHttpClient(okhttpIntersepter(), loggingInterceptor()))
-    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+    .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
     .build()
 
 private fun gson(): retrofit2.converter.gson.GsonConverterFactory =

@@ -3,7 +3,7 @@ package com.example.gojekassignment.viewmodel
 import androidx.lifecycle.ViewModel
 import com.example.gojekassignment.helper.processRequest
 import com.example.gojekassignment.network.ITrendingRepositories
-import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import timber.log.Timber
 
 class TrendingRepositoriesViewModel(
